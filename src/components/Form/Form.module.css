@@ -1,0 +1,35 @@
+.container {
+  width: 490px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.date-wrap {
+  display: flex;
+  gap: 90px;
+}
+
+.input {
+  padding: 10px;
+  margin-right: 20px;
+  border: 2px solid #686767;
+  border-radius: 8px;
+  outline: none;
+}
+
+.input:focus {
+  border: 2px solid #347a83;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: 2px solid #686767;
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #c3f8ff;
+}

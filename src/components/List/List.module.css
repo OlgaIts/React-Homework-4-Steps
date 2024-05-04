@@ -1,0 +1,31 @@
+.date-wrap {
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 25px;
+}
+
+.list {
+  width: 100%;
+  min-height: 200px;
+  border: 2px solid #686767;
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.edit-btn {
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.delete-btn {
+  cursor: pointer;
+  font-size: 18px;
+}
