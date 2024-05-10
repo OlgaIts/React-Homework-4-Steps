@@ -7,7 +7,19 @@ interface ListProps {
   onDelete?: (item: FormProps) => void;
 }
 
+const locale = navigator.language;
+const dateOptions: Intl.DateTimeFormatOptions = {
+  day: "numeric",
+  month: "numeric",
+  year: "numeric",
+};
+const userDate = new Intl.DateTimeFormat(locale, dateOptions);
+
 export const List = ({list, onEdit, onDelete}: ListProps) => {
+  const sortedList = list.sort(
+    (a, b) => Date.parse(b.date) - Date.parse(a.date),
+  );
+
   return (
     <div>
       <div className={styles["date-wrap"]}>
@@ -16,9 +28,9 @@ export const List = ({list, onEdit, onDelete}: ListProps) => {
         <p>Действия</p>
       </div>
       <ul className={styles.list}>
-        {list.map((item) => (
+        {sortedList.map((item) => (
           <li className={styles["list-item"]} key={item.id}>
-            <div>{item.date}</div>
+            <div>{userDate.format(Date.parse(item.date))}</div>
             <div>{item.km}</div>
             <div>
               <span

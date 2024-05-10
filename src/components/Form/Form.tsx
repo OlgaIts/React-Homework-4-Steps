@@ -5,7 +5,7 @@ import styles from "./Form.module.css";
 export interface FormProps {
   id?: string;
   date: string;
-  km: string;
+  km: number | string;
 }
 
 export const Form = () => {
@@ -24,37 +24,32 @@ export const Form = () => {
     if (!form.date || !form.km) {
       return;
     }
-    // if (form.id) {
-    //   const updatedList = list.map((item) => {
-    //     if (form.id === item.id) {
-    //       return form;
-    //     }
-    //     return item;
-    //   });
-    //   setList(updatedList);
-    // } else {
-    //   const newItem = {
-    //     id: `${new Date().toISOString()}`,
-    //     date: form.date,
-    //     km: form.km,
-    //   };
-    const updatedList = form.id
-      ? list.map((item) => {
-          // editElement
-          if (form.id === item.id) {
-            return form;
-          }
-          return item;
-        })
-      : [
-          // addElement
-          {
-            id: `${new Date().toISOString()}`,
-            date: form.date,
-            km: form.km,
-          },
-          ...list,
-        ];
+
+    const updateList = () =>
+      list.map((el) => {
+        if (form.id && el.id === form.id) {
+          return form;
+        }
+        if (el.date === form.date) {
+          return {...el, km: Number(el.km) + Number(form.km)};
+        }
+
+        return el;
+      });
+
+    const hasDate = list.find(({date}) => date === form.date);
+
+    const updatedList =
+      form.id || hasDate
+        ? updateList()
+        : [
+            {
+              id: `${new Date().toISOString()}`,
+              date: form.date,
+              km: Number(form.km),
+            },
+            ...list,
+          ];
     setList(updatedList);
     setForm({date: "", km: ""});
   };
@@ -81,7 +76,7 @@ export const Form = () => {
         <label htmlFor='date'></label>
         <input
           className={styles.input}
-          type='text'
+          type='date'
           id='date'
           onChange={handleFormValueChange}
           value={form.date}
@@ -89,7 +84,7 @@ export const Form = () => {
         <label htmlFor='km'></label>
         <input
           className={styles.input}
-          type='text'
+          type='number'
           id='km'
           onChange={handleFormValueChange}
           value={form.km}
